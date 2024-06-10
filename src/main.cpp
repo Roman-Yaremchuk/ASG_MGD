@@ -9,7 +9,7 @@ const int np_pin = 4;    // Pin, do którego podłączony jest NeoPixel
 // Zmienne globalne
 const char *ssid = "MGD_Base";
 const char *password = "12345678";
-const char *serverClickBotton1 = "http://192.168.4.1/1001";
+const char *serverClickBotton1 = "http://192.168.4.1/btn1Clk";
 int         httpCodeIn = 0;
 const int   count_pixels = 12;
 
@@ -161,7 +161,7 @@ void clickButton(bool* flag1, bool* flag2)
     }
 }
 
-void send_acceptMessageServer(bool* flag1, bool* flag2, bool* flag3 )
+void send_acceptMessageServer(bool* flag1, bool* flag2, bool* flag3)
 {
     if(*flag1 && *flag2 && flag3 ) //jeżeli przycisk został wciśnięty(*flag1(flagGetMessageToServer))
     {
@@ -172,12 +172,9 @@ void send_acceptMessageServer(bool* flag1, bool* flag2, bool* flag3 )
                 HTTPClient http;
                 http.begin(serverClickBotton1);
                 httpCodeIn = http.GET();
-                if (httpCodeIn == 1001)
+                if (httpCodeIn == 1501)
                 {
                     Serial.println("Button 1 pressed, sent to server");
-                }else if(httpCodeIn == 1002)
-                {
-                    Serial.println("dane z servera(2), sent to server");
                 }
                 http.end();
             }
@@ -188,5 +185,6 @@ void send_acceptMessageServer(bool* flag1, bool* flag2, bool* flag3 )
     *
     *Kod do interakcji z serverem
     *
+    * 
     */
 }
