@@ -10,6 +10,8 @@
             "includePath": [
                 "/home/roman/Desktop/Projects/ASG_MGD/include",
                 "/home/roman/Desktop/Projects/ASG_MGD/src",
+                "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
+                "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/FS/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
@@ -220,7 +222,6 @@
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/ESPmDNS/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Ethernet/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/FFat/src",
-                "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/FS/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/HTTPUpdate/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/HTTPUpdateServer/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/I2S/src",
@@ -237,7 +238,6 @@
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Ticker/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
-                "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                 "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                 ""
@@ -247,6 +247,8 @@
                 "path": [
                     "/home/roman/Desktop/Projects/ASG_MGD/include",
                     "/home/roman/Desktop/Projects/ASG_MGD/src",
+                    "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
+                    "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/FS/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src",
@@ -457,7 +459,6 @@
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/ESPmDNS/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Ethernet/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/FFat/src",
-                    "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/FS/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/HTTPUpdate/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/HTTPUpdateServer/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/I2S/src",
@@ -474,7 +475,6 @@
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Ticker/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/USB/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Update/src",
-                    "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WebServer/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/WiFiProv/src",
                     "/home/roman/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src",
                     ""
