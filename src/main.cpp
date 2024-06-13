@@ -24,6 +24,57 @@ int flagStartGame = 1; //!! powinno być 0  flag ze gra jest rozpoczęta
   //unsigned long  timeGame = 0;
   //unsigned long  respDelayGame = 0;
 
+// Deklaracji funkcji
+void handleRoot();
+void handleButton1();
+void handleButton2();
+void getFinish();
+void showConnectedDevices();
+void httpCodeStartRead();
+void startGameOnBase();
+void gameSzpitalType1();
+
+// Funkcja setup, wykonywana raz na początku
+void setup() 
+{
+  Serial.begin(115200);  // Inicjalizuje komunikację szeregową z prędkością 115200 bps
+    // Ustawienia punktu dostępowego
+  WiFi.softAP(ap_ssid, ap_password);  // Tworzy punkt dostępowy z podanym SSID i hasłem
+    IPAddress IP = WiFi.softAPIP();  // Pobiera adres IP punktu dostępowego
+  Serial.print("AP IP address: ");
+  Serial.println(IP);  // Wyświetla adres IP punktu dostępowego
+
+  // Rejestruje funkcje obsługi żądań HTTP dla określonych URI
+  server.on("/", handleRoot);  // Dla głównego URI ("/")
+  server.on("/btn1Clk", handleButton1);  // Dla URI "/button1"
+  server.on("/btn2Clk", handleButton2);  // Dla URI "/button2"
+  //server.on("/2001", handleButton2);  // Dla URI "/button2"
+  server.on("/Game01/start", HTTP_POST, startGameOnBase);  // Dla URI "/setHealth"
+  server.on("/startGame", gameSzpitalType1);  // Dla URI "/setHealth"
+  server.on("/getFinish", getFinish); // pytanie czy koniec gry.
+  server.begin();  // Uruchamia serwer HTTP
+  Serial.println("HTTP server started");  // Wypisuje "HTTP server started" po uruchomieniu serwera
+}
+
+// Funkcja loop, wykonywana wielokrotnie w nieskończonej pętli
+void loop() 
+{
+  server.handleClient();  // Obsługuje żądania klientów HTTP
+  
+  // Czeka i wyświetla liste podłączonych urządzeń
+  showConnectedDevices();
+
+ if ( numStations > 0 && flagStartGame == 0)
+ {
+  httpCodeStartRead( );
+ }
+ if ( numStations > 0 && httpStartCode == 12001 && flagStartGame == 1)
+  {
+    gameSzpitalType1();
+  }
+}
+
+
 // Funkcja obsługująca żądania HTTP na głównym URI ("/")
 void handleRoot() 
 {
@@ -90,7 +141,7 @@ unsigned long currentMillis = millis(); // Pobranie bieżącego czasu
     } 
 }
 // odczytuje znaczenie kodu gry i zapisuje go do httpStartCode
-void httpCodeStartRead( )
+void httpCodeStartRead()
 {
 if (WiFi.status() == WL_CONNECTED) 
     {
@@ -122,7 +173,7 @@ void startGameOnBase()
   }
 }
 
-void GameSzpitalType1()
+void gameSzpitalType1()
 {
 startGameOnBase();
 Serial.println("Game ////");
@@ -131,45 +182,4 @@ Serial.println(String(numHealthTeam2));
 Serial.println("Health updated: Team1 = " + String(numHealthTeam1) + ", Team2 = " + String(numHealthTeam2) + "Game = " + String(flagStartGame));
 
 
-}
-
-
-// Funkcja setup, wykonywana raz na początku
-void setup() 
-{
-  Serial.begin(115200);  // Inicjalizuje komunikację szeregową z prędkością 115200 bps
-    // Ustawienia punktu dostępowego
-  WiFi.softAP(ap_ssid, ap_password);  // Tworzy punkt dostępowy z podanym SSID i hasłem
-    IPAddress IP = WiFi.softAPIP();  // Pobiera adres IP punktu dostępowego
-  Serial.print("AP IP address: ");
-  Serial.println(IP);  // Wyświetla adres IP punktu dostępowego
-
-  // Rejestruje funkcje obsługi żądań HTTP dla określonych URI
-  server.on("/", handleRoot);  // Dla głównego URI ("/")
-  server.on("/btn1Clk", handleButton1);  // Dla URI "/button1"
-  server.on("/btn2Clk", handleButton2);  // Dla URI "/button2"
-  //server.on("/2001", handleButton2);  // Dla URI "/button2"
-  server.on("/Game01/start", HTTP_POST, startGameOnBase);  // Dla URI "/setHealth"
-  server.on("/startGame", GameSzpitalType1);  // Dla URI "/setHealth"
-  server.on("/getFinish", getFinish); // pytanie czy koniec gry.
-  server.begin();  // Uruchamia serwer HTTP
-  Serial.println("HTTP server started");  // Wypisuje "HTTP server started" po uruchomieniu serwera
-}
-
-// Funkcja loop, wykonywana wielokrotnie w nieskończonej pętli
-void loop() 
-{
-  server.handleClient();  // Obsługuje żądania klientów HTTP
-  
-  // Czeka i wyświetla liste podłączonych urządzeń
-  showConnectedDevices();
-
- if ( numStations > 0 && flagStartGame == 0)
- {
-  httpCodeStartRead( );
- }
- if ( numStations > 0 && httpStartCode == 12001 && flagStartGame == 1)
-  {
-    GameSzpitalType1();
-  }
 }

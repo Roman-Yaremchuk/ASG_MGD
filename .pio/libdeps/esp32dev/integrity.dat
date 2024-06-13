@@ -1,1 +1,6 @@
-adafruit/Adafruit NeoPixel@^1.12.2
+Wire
+Adafruit NeoPixel
+SPI
+HTTPClient
+WiFi
+Heltec ESP32 Dev-Boards
