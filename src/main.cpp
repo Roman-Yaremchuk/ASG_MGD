@@ -19,8 +19,8 @@ int flagDelayConnect  = 0; //- dla podłączonych urządzeń
 int flagStartGame = 1; //!! powinno być 0  flag ze gra jest rozpoczęta
 
 // Zmienne do Szpital type1
-  int numHealthTeam1 = 5; //!! powinno być 0
-  int numHealthTeam2 = 5;  //!! powinno być 0
+int numHealthTeam1 = 5; //!! powinno być 0
+int numHealthTeam2 = 5;  //!! powinno być 0
   //unsigned long  timeGame = 0;
   //unsigned long  respDelayGame = 0;
 
@@ -121,7 +121,7 @@ void getFinish()
     {
       server.send(11005);
       flagStartGame = 0;
-        message = "getFinish - wysłany kod";  // Aktualizuje zmienną message
+      message = "getFinish - wysłany kod";  // Aktualizuje zmienną message
     }
 
   Serial.println(message);
@@ -130,14 +130,13 @@ void getFinish()
 // Pokazuję i wysyła dane o ilości urządzeń na ekran
 void showConnectedDevices() 
 {
-static unsigned long previousMillis = 0; // Zmienna do przechowywania poprzedniego czasu
-unsigned long currentMillis = millis(); // Pobranie bieżącego czasu
-    if (currentMillis - previousMillis >= delayConnectTime) 
+static unsigned long tmrConnect = 0; 
+    if (millis() - tmrConnect >= delayConnectTime) 
     {
-    previousMillis = currentMillis; 
-    numStations = WiFi.softAPgetStationNum();
-    Serial.print("Number of connected devices: ");
-    Serial.println(numStations);
+      tmrConnect = millis(); 
+      numStations = WiFi.softAPgetStationNum();
+      Serial.print("Number of connected devices: ");
+      Serial.println(numStations);
     } 
 }
 // odczytuje znaczenie kodu gry i zapisuje go do httpStartCode
