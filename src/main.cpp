@@ -9,7 +9,6 @@ const char* ap_password = "12345678";  // Hasło do punktu dostępowego
 WebServer server(80);  // Tworzy obiekt serwera HTTP na porcie 80
 
 // Zmienne globalne i flagi
-String message = "No data received";  // Zmienna globalna przechowująca wiadomość
 int httpCode = 0;
 int httpStartCode = 0; //!! powinno być 0
 int numStations = 0; // ilość podlączonych urządzeń
@@ -78,13 +77,12 @@ void loop()
 // Funkcja obsługująca żądania HTTP na głównym URI ("/")
 void handleRoot() 
 {
-  server.send(200, "text/plain", message);  // Wysyła odpowiedź HTTP 200 z treścią message
+  server.send(200, "text/plain", "No data received");  // Wysyła odpowiedź HTTP 200 z treścią 
 }
 
 // Funkcja obsługująca żądania HTTP na URI "/button1"
 void handleButton1() 
 {
-  message = "Button 1 Pressed!";  // Aktualizuje zmienną message
   if(numHealthTeam1 > 0)
   {
     numHealthTeam1--;
@@ -101,8 +99,7 @@ Serial.println("Health updated: Team1 = " + String(numHealthTeam1) + ", Team2 = 
 // Funkcja obsługująca żądania HTTP na URI "/button2"
 void handleButton2() 
 {
-  message = "Button 2 Pressed!";  // Aktualizuje zmienną message
-  if(numHealthTeam2 > 0)
+   if(numHealthTeam2 > 0)
   {
     numHealthTeam1--;
   server.send(2501, "text/plain", String(numHealthTeam2));  // Wysyła odpowiedź HTTP 200 z treścią "OK"
@@ -116,16 +113,17 @@ void handleButton2()
 
 void getFinish()
 {
-  message = "getFinish - jest zapytanie";  // Aktualizuje zmienną message
   if(numHealthTeam1 <= 0 || numHealthTeam2 <= 0)
     {
       server.send(11005);
       flagStartGame = 0;
-      message = "getFinish - wysłany kod";  // Aktualizuje zmienną message
+      Serial.println("getFinish - wysłany kod 0");
     }
-
-  Serial.println(message);
-}
+  else
+    {
+      Serial.println("getFinish - jest zapytanie");
+    }
+  }
 
 // Pokazuję i wysyła dane o ilości urządzeń na ekran
 void showConnectedDevices() 
@@ -163,7 +161,6 @@ void startGameOnBase()
     numHealthTeam1 = server.arg("team1").toInt();
     numHealthTeam2 = server.arg("team2").toInt();
     flagStartGame = server.arg("startGameFlag").toInt();
-    message = "Start updated";
     server.send(200, "text/plain", "Health updated");
     Serial.println("Health updated: Team1 = " + String(numHealthTeam1) + ", Team2 = " + String(numHealthTeam2) + "Game = " + String(flagStartGame));
   } else 
