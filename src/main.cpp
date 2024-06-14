@@ -117,7 +117,7 @@ void getFinish()
     {
       server.send(11005);
       flagStartGame = 0;
-      Serial.println("getFinish - wysłany kod 0");
+      Serial.println("getFinish - wysłany kod 11005, flagStartGame = 0");
     }
   else
     {
