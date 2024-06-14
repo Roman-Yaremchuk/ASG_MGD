@@ -174,13 +174,14 @@ void send_acceptMessageServer(bool* flag1, bool* flag2, bool* flag3)
                 http.begin(serverClickBotton1);
                 // Tutaj w odpowiedzie od serwera dostajesz <- server.send(1501, "text/plain", String(numHealthTeam1));  // Wysyła odpowiedź HTTP 200 z treścią "OK"
                 httpCodeIn = http.GET();
-                if (httpCodeIn == 1501)
+                if (httpCodeIn == 1501 && outHealth > 0)
                 {
                     String response = http.getString();
                     outHealth = response.toInt();  // Konwertuje odpowiedź na int i zapisuje do zmiennej outHealth
                     Serial.println("Button 1 pressed, sent to server");
                     Serial.println("Zyć zostalo: " + String(outHealth));
                 }
+                else //GAME OWER
                 http.end();
             }
             *flag1 = false;
