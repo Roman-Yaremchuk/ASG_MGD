@@ -7,6 +7,9 @@ const char* serverName = "http://192.168.4.1/12001"; // Zmodyfikuj adres IP serw
 const char* game01Start = "http://192.168.4.1/Game01/start";  // Zmień na adres IP punktu dostępowego ESP32
 const int buttonPin = 15; 
 
+// flags
+bool flagConnectingDevice = false;
+
 //Game01 - szpital tylko zdrowie ważne
 int gameType = 1; // typ gry
 // Zmienne zdrowia drużyn
@@ -15,24 +18,29 @@ int team2Health = 20;
 
 
 // Deklaracji funkcji
+void trueConnect(bool* flag1);
 void sendToBaseStartGame01(int team1, int team2);
 
 
 void setup() 
 {
+  // Inicjalizacja komunikacji szeregowej
   Serial.begin(115200);
-  pinMode(buttonPin, INPUT_PULLUP);
+  // Podłączenie do serwera
   WiFi.begin(ssid, password);
+  // Ustwienie pina przycisku
+  pinMode(buttonPin, INPUT_PULLUP);
 
-  while (WiFi.status() != WL_CONNECTED) 
-  {
-    delay(500);
-    Serial.print(".");
-  }
-  Serial.println("WiFi connected");
 }
 
-void loop() {
+void loop() 
+{
+  // sprawdzanie połączenia
+  if (!&flagConnectingDevice)
+  {
+  trueConnect(&flagConnectingDevice);  
+  }
+
   if (digitalRead(buttonPin) == LOW && gameType == 1) 
   {
     sendToBaseStartGame01(team1Health, team2Health);
@@ -41,6 +49,21 @@ void loop() {
  
 }
 
+
+//wyświetla w port try connect kiedy probuję podłączyć sie do wifi
+void trueConnect(bool* flag1)
+{
+    static unsigned long tmr2 = 0;
+    if(millis() - tmr2 >= 1000)
+    {
+        tmr2 = millis();
+        if(WiFi.status() != WL_CONNECTED)
+        {
+            Serial.println("try connect");
+            *flag1 = false;
+        }
+    }
+}
 
 // Funkcja do wysyłania danych zdrowia i kodu startu gry
 void sendToBaseStartGame01(int team1, int team2) 
