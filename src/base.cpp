@@ -1,4 +1,3 @@
-//Base
 #include <WiFi.h>
 #include <WebServer.h>
 #include <HTTPClient.h>
