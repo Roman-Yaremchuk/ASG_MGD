@@ -183,7 +183,7 @@ void send_acceptMessageServer(bool* flag1, bool* flag2, bool* flag3)
     /*
     *
     *
-    *Kod do interakcji z serverem
+    *Kod do wymiany danych z serverem
     *
     * 
     */
