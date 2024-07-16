@@ -1,6 +1,9 @@
-Wire
-Adafruit NeoPixel
-SPI
+adafruit/Adafruit GFX Library@^1.11.9
 HTTPClient
+Wire
+ArduinoWebsockets
 WiFi
 Heltec ESP32 Dev-Boards
+WiFiClientSecure
+SPI
+Adafruit NeoPixel
